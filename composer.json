@@ -1,0 +1,35 @@
+{
+  "name": "litlife/fb2",
+  "description": "Fb2 module",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Litlife",
+      "email": "litlife@yandex.ru"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "ext-dom": "*",
+    "ext-imagick": "*",
+    "ext-mbstring": "*",
+    "ext-libxml": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Litlife\\Fb2\\Facades\\": "src/Facades",
+      "Litlife\\Fb2\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Litlife\\Fb2\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}
