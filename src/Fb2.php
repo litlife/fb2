@@ -53,7 +53,7 @@ class Fb2
     /**
      * @throws \Exception
      */
-    public function setFile(string $path)
+    public function setFile(mixed $path)
     {
         $this->loadFile($path);
     }
@@ -61,15 +61,14 @@ class Fb2
     /**
      * @throws \Exception
      */
-    public function loadFile(mixed $path)
+    public function loadFile(mixed $file)
     {
-        if (is_string($path) and is_file($path)) {
-            $this->loadXML(file_get_contents($path));
-        } elseif (is_resource($path)) {
-            $this->loadXML(stream_get_contents($path));
-        } else {
-            throw new Exception('File or resource invalid');
-        }
+        if (is_string($file) and is_file($file))
+            $this->loadXML(file_get_contents($file));
+        elseif (is_resource($file))
+            $this->loadXML(stream_get_contents($file));
+        else
+            throw new Exception('File parameter must be path or resource');
     }
 
     /**
@@ -94,13 +93,11 @@ class Fb2
 
         $prefix = $this->parseNamespacePrefix();
 
-        if ($prefix) {
+        if ($prefix)
             $this->prefix = $prefix;
-        }
 
-        if (empty($this->prefix)) {
+        if (empty($this->prefix))
             throw new Exception('Prefix empty');
-        }
 
         $this->loadDescription();
         $this->loadBodies();

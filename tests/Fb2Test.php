@@ -534,7 +534,7 @@ EOF;
     public function testExceptionFileOrResourceNotFound()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('File or resource invalid');
+        $this->expectExceptionMessage('File parameter must be path or resource');
 
         $fb2 = new Fb2();
         $fb2->loadFile(uniqid());
@@ -586,6 +586,21 @@ EOF;
         $fb2->setFile(__DIR__ . '/books/without_namespace.fb2');
 
         $this->assertEquals('Название книги', $fb2->description()
+            ->getFirstChild('title-info')
+            ->getFirstChildValue('book-title'));
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testSetFileAsResource()
+    {
+        $resource = fopen(__DIR__ . '/books/test_entities.fb2', 'rb');
+
+        $fb2 = new Fb2();
+        $fb2->setFile($resource);
+
+        $this->assertEquals('Название & книги', $fb2->description()
             ->getFirstChild('title-info')
             ->getFirstChildValue('book-title'));
     }
